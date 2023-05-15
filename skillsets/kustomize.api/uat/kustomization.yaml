@@ -9,7 +9,7 @@ namePrefix: uat-
 images:
 - name: SKILLSETS_API_IMAGE_NAME
   newName: 587878432697.dkr.ecr.us-east-1.amazonaws.com/skillsets-api
-  newTag: "66"
+  newTag: "67"
 
 # Generate a configmap
 configMapGenerator:
