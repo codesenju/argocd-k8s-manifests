@@ -4,39 +4,37 @@ kind: Kustomization
 # Image with the name CONTAINER_IMAGE should have its image name 
 # changed to codesenju/skillsets-api and its tag changed to latest
 images:
- - name: SKILLSETS_UI_IMAGE_NAME
-   newName: codesenju/skillsets-ui
-   newTag: v1
+- name: SKILLSETS_UI_IMAGE_NAME
+  newName: 587878432697.dkr.ecr.us-east-1.amazonaws.com/skillsets-ui
+  newTag: "3"
 
 namespace: uat
 namePrefix: uat-
 
-patches:
-- target:
-    group: apps
-    version: v1
-    kind: Deployment
-    name: skillsets-ui
-    namespace: skillsets
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/0/value
-      value: uat-skillsets
 #- path: ingress-patch.yaml
 #  target:
 #    group: networking.k8s.io
 #    version: v1
 #    kind: Ingress
 #    name: skillsets-ui-ingress
+patches:
 - patch: |-
-     - op: replace # action 
-       path: /spec/rules/0/host # resource we want to change
-       value: uat-skillsets-ui.lmasu.co.za # value we want to use for patching 
+    - op: replace
+      path: /spec/template/spec/containers/0/env/0/value
+      value: uat-skillsets
   target:
-     group: networking.k8s.io
-     version: v1
-     kind: Ingress
-     name: skillsets-ui-ingress
+    group: apps
+    kind: Deployment
+    name: skillsets-ui
+    namespace: skillsets
+    version: v1
+- patch: "- op: replace # action \n  path: /spec/rules/0/host # resource we want to
+    change\n  value: uat-skillsets-ui.lmasu.co.za # value we want to use for patching "
+  target:
+    group: networking.k8s.io
+    kind: Ingress
+    name: skillsets-ui-ingress
+    version: v1
     
 resources:
 - ../base/
