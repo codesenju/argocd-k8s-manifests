@@ -6,7 +6,7 @@ kind: Kustomization
 images:
 - name: SKILLSETS_UI_IMAGE_NAME
   newName: 587878432697.dkr.ecr.us-east-1.amazonaws.com/skillsets-ui
-  newTag: "5"
+  newTag: "6"
 
 namespace: uat
 namePrefix: uat-
