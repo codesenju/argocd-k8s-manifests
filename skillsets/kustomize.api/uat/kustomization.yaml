@@ -8,8 +8,8 @@ namePrefix: uat-
 # changed to codesenju/skillsets-api and its tag changed
 images:
 - name: SKILLSETS_API_IMAGE_NAME
-  newName: codesenju/skillsets-api
-  newTag: latst
+  newName: 587878432697.dkr.ecr.us-east-1.amazonaws.com/skillsets-api
+  newTag: "66"
 
 # Generate a configmap
 configMapGenerator:
