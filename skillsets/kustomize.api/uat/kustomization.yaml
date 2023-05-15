@@ -9,7 +9,7 @@ namePrefix: uat-
 images:
 - name: SKILLSETS_API_IMAGE_NAME
   newName: codesenju/skillsets-api
-  newTag: latst
+  newTag: latest
 
 # Generate a configmap
 configMapGenerator:
