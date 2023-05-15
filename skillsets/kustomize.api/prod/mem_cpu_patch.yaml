@@ -1,0 +1,20 @@
+################
+## DEPLOYMENT ##
+################
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  skillsets
+spec:
+  template:
+    spec:
+      containers:
+      - name:  skillsets
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi

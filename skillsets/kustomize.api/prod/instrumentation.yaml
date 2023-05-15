@@ -1,0 +1,15 @@
+################
+## DEPLOYMENT ##
+################
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  skillsets
+spec:
+  template:
+    metadata:
+      labels:
+        app:  skillsets
+      annotations:
+        instrumentation.opentelemetry.io/inject-python: "demo-instrumentation"

@@ -1,0 +1,40 @@
+################
+## DEPLOYMENT ##
+################
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  skillsets
+  labels:
+    app:  skillsets
+spec:
+  selector:
+    matchLabels:
+      app: skillsets
+#  replicas: 0
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  skillsets
+    spec:
+      containers:
+      - name:  skillsets
+        image:  SKILLSETS_API_IMAGE_NAME
+        imagePullPolicy: Always
+#        command:
+#          - flask
+#        args:
+#          - run
+        envFrom:
+        - configMapRef:
+            name: skillsets-config
+        ports:
+        - containerPort:  80
+          name:  skillsets-port
+      restartPolicy: Always

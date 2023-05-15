@@ -1,0 +1,18 @@
+#############
+## SERVICE ##
+#############
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skillsets
+  namespace: skillsets
+spec:
+  selector:
+    app: skillsets
+  type: NodePort
+  ports:
+  - name: skillsets-port
+    protocol: TCP
+    port: 5000
+    targetPort: 5000
