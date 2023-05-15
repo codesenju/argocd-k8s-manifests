@@ -155,8 +155,9 @@ argocd app create $ENV-skillsets-api \
     --dest-server $DEST_CLUSTER \
     --path skillsets/kustomize.api/$ENV \
     --revision HEAD \
-    --project uat \
-    --kustomize-image 'SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:cors'
+    --project uat
+
+#   --kustomize-image 'SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest'
 
 ```
 ### skillsets-ui
@@ -166,8 +167,9 @@ argocd app create $ENV-skillsets-ui \
     --dest-server 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com' \
     --path skillsets/kustomize.ui/$ENV \
     --revision HEAD \
-    --project uat \
-    --kustomize-image 'SKILLSETS_UI_IMAGE_NAME=codesenju/skillsets-ui:latest'
+    --project uat
+
+#  --kustomize-image 'SKILLSETS_UI_IMAGE_NAME=codesenju/skillsets-ui:v1'
 
 argocd app delete $ENV-skillsets-ui -y
 ```
