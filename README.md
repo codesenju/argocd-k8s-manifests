@@ -132,14 +132,14 @@ cat <<EOF | kubectl apply -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-skillsets
+  name: $ENV-skillsets-api
   namespace: argocd
 spec:
   destination:
     server: 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com'
   source:
-    repoURL: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/skillsets'
-    path: kustomize/dev
+    repoURL: $REPO_URL
+    path: killsets/kustomize.api/$ENV
     targetRevision: argocd
     kustomize:
       images:
@@ -155,19 +155,21 @@ argocd app create $ENV-skillsets-api \
     --dest-server $DEST_CLUSTER \
     --path skillsets/kustomize.api/$ENV \
     --revision HEAD \
-    --project uat \
-    --kustomize-image 'SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:cors'
+    --project uat
+
+#   --kustomize-image 'SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest'
 
 ```
 ### skillsets-ui
 ```bash
-argocd app create uat-skillsets-ui \
-    --repo  '${REPO_URL}' \
+argocd app create $ENV-skillsets-ui \
+    --repo  $REPO_URL \
     --dest-server 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com' \
-    --path skillsets/kustomize.ui/uat \
+    --path skillsets/kustomize.ui/$ENV \
     --revision HEAD \
-    --project uat \
-    --kustomize-image 'SKILLSETS_UI_IMAGE_NAME=codesenju/skillsets-ui:latest'
+    --project uat
+
+#  --kustomize-image 'SKILLSETS_UI_IMAGE_NAME=codesenju/skillsets-ui:v1'
 
 argocd app delete $ENV-skillsets-ui -y
 ```
@@ -178,21 +180,29 @@ cat <<EOF | kubectl delete -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-skillsets
+  name: $ENV-skillsets-api
   namespace: argocd
 spec:
   destination:
     server: 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com'
   source:
-    repoURL: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/skillsets'
-    path: kustomize/dev
+    repoURL: $REPO_URL
+    path: killsets/kustomize.api/$ENV
     targetRevision: argocd
     kustomize:
       images:
-      - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:cors
+      - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest
   project: uat
 EOF
-
 # Option 2
-argocd app delete uat-skillsets -y
+argocd app delete $ENV-skillsets-ui -y
+```
+
+## Deploy new image
+```bash
+ENV=***
+REPOSITORY_URI=codesenju/skillsets-api
+TAG=v1
+cd skillsets/kustomize.ui/$ENV
+kustomize edit set image SKILLSETS_UI_IMAGE_NAME=$REPOSITORY_URI:$TAG
 ```
