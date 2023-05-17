@@ -21,15 +21,17 @@ patches:
 - patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/env/0/value
-      value: uat-skillsets
+      value: http://uat-skillsets:5000
   target:
     group: apps
     kind: Deployment
     name: skillsets-ui
     namespace: skillsets
     version: v1
-- patch: "- op: replace # action \n  path: /spec/rules/0/host # resource we want to
-    change\n  value: uat-skillsets-ui.lmasu.co.za # value we want to use for patching "
+- patch: |- 
+    - op: replace # action 
+      path: /spec/rules/0/host # resource we want to
+      value: uat-skillsets-ui.lmasu.co.za # value we want to use for patching "
   target:
     group: networking.k8s.io
     kind: Ingress

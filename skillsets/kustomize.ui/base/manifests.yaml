@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: NEXT_PUBLIC_API_ENDPOINT
-          value: https://uat-skillsets.lmasu.co.za
+          value: https://dev-skillsets.lmasu.co.za
         - name: OTEL_ENDPOINT_GRPC
           value: http://my-collector-xray-collector.opentelemetry-operator-system.svc.cluster.local:4317
         ports:
