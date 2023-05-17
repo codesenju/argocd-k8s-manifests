@@ -15,4 +15,4 @@ spec:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app: skillsets
+            app: skillsets-ui
