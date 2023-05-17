@@ -36,6 +36,8 @@ patches:
     kind: Ingress
     name: skillsets-ui-ingress
     version: v1
-    
+- path: replica_count_patch.yaml
+- path: topology_spread_patch.yaml
+
 resources:
 - ../base/
