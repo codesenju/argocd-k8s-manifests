@@ -37,7 +37,7 @@ replacements:
 # should be applied to an Ingress resource named skillsets-ingress 
 # in the networking.k8s.io/v1 API group and version. 
 patches:
-- path: ingress-patch.yaml
+- path: ingress_patch.yaml
   target:
     group: networking.k8s.io
     kind: Ingress
@@ -52,6 +52,11 @@ patches:
 #    version: v1
 #    kind: Ingress
 #    name: skillsets-ui-ingress
-    
+- path: topology_spread_patch.yaml
+- path: mem_cpu_patch.yaml
+- path: health_check_patch.yaml
+#- path: instrumentation_patch.yaml
+- path: replica_count_patch.yaml
+
 resources:
 - ../base/
