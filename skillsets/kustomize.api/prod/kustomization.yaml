@@ -17,6 +17,10 @@ configMapGenerator:
   - REDIS_HOST=localhost
   - REDIS_PORT="6379"
   - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+  - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT='http://my-collector-xray-collector.opentelemetry-operator-system.svc.cluster.local:4317'
+  - OTEL_PROPAGATORS=xray
+  - OTEL_PYTHON_ID_GENERATOR=xray
+  - OTEL_RESOURCE_ATTRIBUTES='service.name=skillsets-api'
   name: skillsets-config
 
 # Takes the name of the redis service and uses it as the value for the REDIS_HOST key in the skillsets-config ConfigMap.

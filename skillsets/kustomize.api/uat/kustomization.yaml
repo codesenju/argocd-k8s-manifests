@@ -52,6 +52,7 @@ patches:
 #     version: v1
 #     kind: Ingress
 #     name: skillsets-ui-ingress
-    
+- path: topology_spread_patch.yaml
+
 resources:
 - ../base/

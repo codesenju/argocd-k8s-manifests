@@ -16,8 +16,6 @@ ECR_REPO_URL=$(aws ecr describe-repositories --repository-names $ECR_REPO_NAME -
 
 ### Create CodeCommit Repository and push local code to repo
 ```bash
-### Create CodeCommit Repository and push local code to repo
-```bash
 REPO_NAME="argocd-k8s-manifests"
 aws codecommit create-repository --repository-name $REPO_NAME
 REPO_URL=$(aws codecommit get-repository --repository-name $REPO_NAME --query 'repositoryMetadata.cloneUrlHttp' --output text)
@@ -175,8 +173,9 @@ argocd app delete $ENV-skillsets-ui -y
 ```
 ## Clean up
 ```bash
+DEST_SERVER=***
 # Option 1
-cat <<EOF | kubectl delete -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -184,11 +183,11 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com'
+    server: $DEST_SERVER
   source:
     repoURL: $REPO_URL
-    path: killsets/kustomize.api/$ENV
-    targetRevision: argocd
+    path: skillsets/kustomize.api/$ENV
+    targetRevision: HEAD
     kustomize:
       images:
       - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest
