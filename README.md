@@ -160,6 +160,8 @@ argocd app create $ENV-skillsets-api \
 ```
 ### skillsets-ui
 ```bash
+# Only deployable on the cluster where argocd server is installed!
+
 argocd app create $ENV-skillsets-ui \
     --repo  $REPO_URL \
     --dest-server 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com' \

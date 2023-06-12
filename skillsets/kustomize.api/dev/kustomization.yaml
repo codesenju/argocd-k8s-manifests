@@ -44,7 +44,7 @@ patches:
     kind: Ingress
     name: skillsets-ingress
     version: v1
-- path: topology_spread_patch.yaml
+# - path: topology_spread_patch.yaml
 
 resources:
 - ../base/
