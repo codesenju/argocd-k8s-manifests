@@ -143,6 +143,9 @@ spec:
       images:
       - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest
   project: uat
+  # syncPolicy: # Rollback cannot be performed against an application with automated sync enabled.
+  #   automated:
+  #     selfHeal: true
 EOF
 
 # Deployable anywhere!
