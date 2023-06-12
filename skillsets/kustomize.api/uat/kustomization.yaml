@@ -53,6 +53,6 @@ patches:
 #     kind: Ingress
 #     name: skillsets-ui-ingress
 - path: topology_spread_patch.yaml
-
+- path: mem_cpu_patch.yaml
 resources:
 - ../base/

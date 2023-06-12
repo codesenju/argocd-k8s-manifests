@@ -134,11 +134,11 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com'
+    server: $DEST_SERVER
   source:
     repoURL: $REPO_URL
-    path: killsets/kustomize.api/$ENV
-    targetRevision: argocd
+    path: skillsets/kustomize.api/$ENV
+    targetRevision: HEAD
     kustomize:
       images:
       - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest
@@ -161,7 +161,26 @@ argocd app create $ENV-skillsets-api \
 ### skillsets-ui
 ```bash
 # Only deployable on the cluster where argocd server is installed!
+cat <<EOF | kubectl apply -f -
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: $ENV-skillsets-ui
+  namespace: argocd
+spec:
+  destination:
+    server: $DEST_SERVER
+  source:
+    repoURL: $REPO_URL
+    path: skillsets/kustomize.ui/$ENV
+    targetRevision: HEAD
+    kustomize:
+      images:
+      - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-ui:latest
+  project: uat
+EOF
 
+# Only deployable on the cluster where argocd server is installed!
 argocd app create $ENV-skillsets-ui \
     --repo  $REPO_URL \
     --dest-server 'https://0807E0011E71891914718E9F1BC052A3.gr7.us-east-1.eks.amazonaws.com' \
@@ -177,26 +196,11 @@ argocd app delete $ENV-skillsets-ui -y
 ```bash
 DEST_SERVER=***
 # Option 1
-cat <<EOF | kubectl apply -f -
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: $ENV-skillsets-api
-  namespace: argocd
-spec:
-  destination:
-    server: $DEST_SERVER
-  source:
-    repoURL: $REPO_URL
-    path: skillsets/kustomize.api/$ENV
-    targetRevision: HEAD
-    kustomize:
-      images:
-      - SKILLSETS_API_IMAGE_NAME=codesenju/skillsets-api:latest
-  project: uat
-EOF
+kubectl delete application $ENV-skillsets-api
+kubectl delete application $ENV-skillsets-api
 # Option 2
 argocd app delete $ENV-skillsets-ui -y
+argocd app delete $ENV-skillsets-api -y
 ```
 
 ## Deploy new image

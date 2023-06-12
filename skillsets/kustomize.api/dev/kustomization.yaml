@@ -45,6 +45,7 @@ patches:
     name: skillsets-ingress
     version: v1
 # - path: topology_spread_patch.yaml
+- path: mem_cpu_patch.yaml
 
 resources:
 - ../base/
