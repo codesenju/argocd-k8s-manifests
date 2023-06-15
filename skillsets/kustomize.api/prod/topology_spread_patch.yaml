@@ -22,7 +22,6 @@ spec:
 #        labelSelector:
 #          matchLabels:
 #            app: skillsets
----
 ################
 ## DEPLOYMENT ##
 ################
