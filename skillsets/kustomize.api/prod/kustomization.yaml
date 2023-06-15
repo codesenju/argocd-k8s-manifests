@@ -60,7 +60,7 @@ patches:
 - path: mem_cpu_patch.yaml
 - path: health_check_patch.yaml
 #- path: instrumentation_patch.yaml
-- path: replica_count_patch.yaml
+#- path: replica_count_patch.yaml
 - path: sts_topology_spread.yaml
 
 resources:
