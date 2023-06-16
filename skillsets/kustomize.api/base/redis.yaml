@@ -34,142 +34,45 @@ spec:
         volumeMounts:
         - name: redis-data
           mountPath: /data
-  volumeClaimTemplates:
-  - metadata:
-      name: redis-data
-    spec:
-      accessModes: [ "ReadWriteMany" ]
-      storageClassName: "efs-sc-dynamic"
-      resources:
-        requests:
-          storage: 1Gi
+  volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: redis-efs-claim
+#  volumeClaimTemplates:
+#  - metadata:
+#      name: redis-data
+#    spec:
+#      accessModes: [ "ReadWriteMany" ]
+#      storageClassName: "efs-sc-dynamic"
+#      resources:
+#        requests:
+#          storage: 1Gi
 ---
 apiVersion: v1
-kind: Service
+kind: PersistentVolume
 metadata:
-  name: skillsets-redis-db
+  name: efs-pv
 spec:
-  selector:
-    app: redis
-  type: ClusterIP
-  ports:
-  - name: redis-port
-    protocol: TCP
-    port: 6379
-    targetPort: 6379
-    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
-    # you can specify a value in the `spec.ports[*].nodePort` field.
-    # nodePort: 
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: redis-test
-spec:
-  serviceName: "redis-trest"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: redis-test
-  template:
-    metadata:
-      labels:
-        app: redis-test
-    spec:
-      initContainers:
-      - name: redis-init
-        image: redis:5.0.12
-        command:
-        - sh
-        - -c
-        - |
-          if [ $(hostname) != 'redis-test-0' ]; then
-            redis-cli -h redis-test-0 ping
-            while [ $? -ne 0 ]; do
-              echo 'Waiting for redis-test-0'
-              sleep 1
-              redis-cli -h redis-test-0 ping
-            done
-            echo "Setting replicaof for $(hostname)"
-            redis-cli -h $(hostname) replicaof redis-test-0 6379
-          fi
-      containers:
-      - name: redis-test
-        image: redis:5.0.12
-        command:
-          - redis-server
-          - "--appendonly"
-          - "yes"
-        ports:
-        - containerPort: 6379
-          name: client
-        volumeMounts:
-        - name: data
-          mountPath: /data
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-sc
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-0ce3af02096dd1a5f:/skillsets
+# aws efs create-access-point --file-system-id fs-0ce3af02096dd1a5f --root-directory Path=/skillsets
 ---
 apiVersion: v1
-kind: Service
+kind: PersistentVolumeClaim
 metadata:
-  name: redis-test
+  name: redis-efs-claim
 spec:
-  selector:
-    app: redis-test
-  type: ClusterIP
-  ports:
-  - name: redis-port
-    protocol: TCP
-    port: 6379
-    targetPort: 6379
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-test-0
-spec:
-  selector:
-    app: redis-test
-    statefulset.kubernetes.io/pod-name: redis-test-0
-  type: ClusterIP
-  ports:
-  - name: redis-port
-    protocol: TCP
-    port: 6379
-    targetPort: 6379
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-test-1
-spec:
-  selector:
-    app: redis-test
-    statefulset.kubernetes.io/pod-name: redis-test-1
-  type: ClusterIP
-  ports:
-  - name: redis-port
-    protocol: TCP
-    port: 6379
-    targetPort: 6379
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-test-2
-spec:
-  selector:
-    app: redis-test
-    statefulset.kubernetes.io/pod-name: redis-test-2
-  type: ClusterIP
-  ports:
-  - name: redis-port
-    protocol: TCP
-    port: 6379
-    targetPort: 6379
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 1Gi
