@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name:  redis
+  name:  skillsets-redis-db
 spec:
   template:
     spec:
@@ -12,7 +12,7 @@ spec:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app: redis
+            app: skillsets-redis-db
 #      - maxSkew: 1
 #        topologyKey: kubernetes.io/hostname
 #        whenUnsatisfiable: DoNotSchedule

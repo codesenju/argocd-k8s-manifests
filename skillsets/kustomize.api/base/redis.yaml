@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis
+  name: skillsets-redis-db
   namespace: skillsets
 spec:
   selector:
     matchLabels:
       app: redis # has to match .spec.template.metadata.labels
-  serviceName: "redis"
+  serviceName: "skillsets-redis-db"
 #  replicas: 0 # by default is 1
   template:
     metadata:
@@ -48,7 +48,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis
+  name: skillsets-redis-db
   namespace: skillsets
 spec:
   selector:
