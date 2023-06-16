@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: skillsets
+    name: KUSTOMIZE
   minReplicas: 3
   maxReplicas: 12
   metrics:
@@ -26,12 +26,12 @@ spec:
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: skillsets-redis-hpa
+  name: skillsets-redis-db-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: StatefulSet
-    name: redis
+    name: KUSTOMIZE
   minReplicas: 3
   maxReplicas: 12
   metrics:

@@ -36,7 +36,25 @@ replacements:
     select:
       kind: ConfigMap
       name: skillsets-config
-
+  - fieldPaths:
+    -  spec.scaleTargetRef.name
+    select:
+      kind: HorizontalPodAutoscaler
+      name: skillsets-redis-db-hpa
+- source:
+    fieldPath: metadata.name
+    kind: Service
+    name: skillsets
+    version: v1
+  targets:
+  - fieldPaths:
+    -  spec.scaleTargetRef.name
+    select:
+      kind: HorizontalPodAutoscaler
+      name: skillsets-api-hpa
+#############
+## PATCHES ##
+#############
 # This specifies that the patch in ingress-patch.yaml 
 # should be applied to an Ingress resource named skillsets-ingress 
 # in the networking.k8s.io/v1 API group and version. 
@@ -59,16 +77,9 @@ patches:
 - path: topology_spread_patch.yaml
 - path: mem_cpu_patch.yaml
 - path: health_check_patch.yaml
+- path: sts_topology_spread.yaml
 #- path: instrumentation_patch.yaml
 #- path: replica_count_patch.yaml
-- path: sts_topology_spread.yaml
-  target:
-      group: apps
-      version: v1
-      kind: StatefulSet
-      name: skillsets-redis-db
-      labelSelector: "app=skillsets-redis-db"
-
 
 resources:
 - ../base/

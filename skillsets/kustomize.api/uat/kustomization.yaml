@@ -24,7 +24,7 @@ replacements:
 - source:
     fieldPath: metadata.name
     kind: Service
-    name: redis
+    name: skillsets-redis-db
     version: v1
   targets:
   - fieldPaths:
@@ -32,6 +32,22 @@ replacements:
     select:
       kind: ConfigMap
       name: skillsets-config
+  - fieldPaths:
+    -  spec.scaleTargetRef.name
+    select:
+      kind: HorizontalPodAutoscaler
+      name: skillsets-redis-db-hpa
+- source:
+    fieldPath: metadata.name
+    kind: Service
+    name: skillsets
+    version: v1
+  targets:
+  - fieldPaths:
+    -  spec.scaleTargetRef.name
+    select:
+      kind: HorizontalPodAutoscaler
+      name: skillsets-api-hpa
 
 # This specifies that the patch in ingress-patch.yaml 
 # should be applied to an Ingress resource named skillsets-ingress 
