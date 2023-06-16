@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: redis # has to match .spec.selector.matchLabels
+        app: skillsets-redis-db # has to match .spec.selector.matchLabels
     spec:
       terminationGracePeriodSeconds: 10
       containers:
