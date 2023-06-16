@@ -28,7 +28,8 @@ replacements:
 - source:
     fieldPath: metadata.name
     kind: Service
-    name: skillsets-redis-db
+    name: redis-test
+#    name: skillsets-redis-db
     version: v1
   targets:
   - fieldPaths:
@@ -78,6 +79,7 @@ patches:
 - path: mem_cpu_patch.yaml
 - path: health_check_patch.yaml
 - path: sts_topology_spread.yaml
+- path: redis_test_tsc.yaml
 #- path: instrumentation_patch.yaml
 #- path: replica_count_patch.yaml
 
