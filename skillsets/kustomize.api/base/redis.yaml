@@ -38,7 +38,7 @@ spec:
   - metadata:
       name: redis-data
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: [ "ReadWriteMany" ]
       storageClassName: "efs-sc-dynamic"
       resources:
         requests:
