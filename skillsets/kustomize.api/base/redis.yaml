@@ -34,7 +34,7 @@ spec:
         volumeMounts:
         - name: redis-data
           mountPath: /data
-  volumes:
+      volumes:
       - name: redis-data
         persistentVolumeClaim:
           claimName: redis-efs-claim
