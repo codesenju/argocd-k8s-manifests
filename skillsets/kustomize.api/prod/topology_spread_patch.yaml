@@ -5,7 +5,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  skillsets
+  name:  skillsets-api
 spec:
   template:
     spec:
@@ -15,10 +15,10 @@ spec:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app: skillsets
+            app: skillsets-api
 #      - maxSkew: 1
 #        topologyKey: kubernetes.io/hostname
 #        whenUnsatisfiable: DoNotSchedule
 #        labelSelector:
 #          matchLabels:
-#            app: skillsets
+#            app: skillsets-api
