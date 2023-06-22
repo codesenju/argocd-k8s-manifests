@@ -22,6 +22,17 @@ spec:
       target:
         type: Utilization
         averageUtilization: 60
+  behavior:
+    scaleUp:
+      policies:
+      - type: Pods
+        value: 2
+        periodSeconds: 5
+    scaleDown:
+      policies:
+      - type: Pods
+        value: 1
+        periodSeconds: 10
 ---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
