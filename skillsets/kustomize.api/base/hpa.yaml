@@ -26,8 +26,8 @@ spec:
     scaleUp:
       policies:
       - type: Pods
-        value: 2
-        periodSeconds: 5
+        value: 3
+        periodSeconds: 10
     scaleDown:
       policies:
       - type: Pods
@@ -62,8 +62,8 @@ spec:
     scaleUp:
       policies:
       - type: Pods
-        value: 2
-        periodSeconds: 5
+        value: 3
+        periodSeconds: 10
     scaleDown:
       policies:
       - type: Pods
