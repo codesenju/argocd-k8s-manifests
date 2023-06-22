@@ -62,7 +62,7 @@ spec:
     scaleUp:
       policies:
       - type: Pods
-        value: 1
+        value: 2
         periodSeconds: 5
     scaleDown:
       policies:
