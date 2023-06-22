@@ -5,13 +5,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  skillsets
+  name:  skillsets-api
   labels:
-    app:  skillsets
+    app:  skillsets-api
 spec:
   selector:
     matchLabels:
-      app: skillsets
+      app: skillsets-api
 #  replicas: 0
   strategy:
     rollingUpdate:
@@ -21,10 +21,10 @@ spec:
   template:
     metadata:
       labels:
-        app:  skillsets
+        app:  skillsets-api
     spec:
       containers:
-      - name:  skillsets
+      - name:  skillsets-api
         image:  SKILLSETS_API_IMAGE_NAME
         imagePullPolicy: Always
 #        command:
@@ -33,8 +33,8 @@ spec:
 #          - run
         envFrom:
         - configMapRef:
-            name: skillsets-config
+            name: skillsets-api-config
         ports:
         - containerPort:  80
-          name:  skillsets-port
+          name:  http
       restartPolicy: Always

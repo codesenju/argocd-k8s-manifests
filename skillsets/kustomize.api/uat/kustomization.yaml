@@ -17,7 +17,7 @@ configMapGenerator:
   - REDIS_HOST=localhost
   - REDIS_PORT="6379"
   - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
-  name: skillsets-config
+  name: skillsets-api-config
 
 # Takes the name of the redis service and uses it as the value for the REDIS_HOST key in the skillsets-config ConfigMap.
 replacements:
@@ -40,7 +40,7 @@ replacements:
 - source:
     fieldPath: metadata.name
     kind: Service
-    name: skillsets
+    name: skillsets-api
     version: v1
   targets:
   - fieldPaths:

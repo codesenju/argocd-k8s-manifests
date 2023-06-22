@@ -1,8 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: skillsets
-  name: skillsets-ingress
+  name: skillsets-api-ingress
 spec:
   ingressClassName: nginx
   rules:
@@ -13,6 +12,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: skillsets
+                name: skillsets-api
                 port:
-                  number: 5000
+                  name: http

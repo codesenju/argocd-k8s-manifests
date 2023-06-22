@@ -5,8 +5,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: skillsets-config
-  namespace: skillsets
+  name: skillsets-api-config
 data:
 #  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:  "http://my-collector-xray-collector.prometheus.svc.cluster.local:4317"
 #  OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://my-collector-xray-collector.prometheus.svc.cluster.local:4317"

@@ -41,7 +41,7 @@ replacements:
 - source:
     fieldPath: metadata.name
     kind: Service
-    name: skillsets
+    name: skillsets-api
     version: v1
   targets:
   - fieldPaths:

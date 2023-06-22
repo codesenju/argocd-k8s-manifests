@@ -5,12 +5,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  skillsets
+  name:  skillsets-api
 spec:
   template:
     spec:
       containers:
-      - name:  skillsets
+      - name:  skillsets-api
         livenessProbe:
           tcpSocket:
             port: 5000

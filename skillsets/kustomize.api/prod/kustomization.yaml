@@ -21,7 +21,7 @@ configMapGenerator:
   - OTEL_PROPAGATORS=xray
   - OTEL_PYTHON_ID_GENERATOR=xray
   - OTEL_RESOURCE_ATTRIBUTES='service.name=skillsets-api'
-  name: skillsets-config
+  name: skillsets-api-config
 
 # Takes the name of the redis service and uses it as the value for the REDIS_HOST key in the skillsets-config ConfigMap.
 replacements:

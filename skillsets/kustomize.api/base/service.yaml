@@ -5,14 +5,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: skillsets
-  namespace: skillsets
+  name: skillsets-api
+  namespace: skillsets-api
 spec:
   selector:
-    app: skillsets
-  type: NodePort
+    app: skillsets-api
   ports:
-  - name: skillsets-port
+  - name: http
     protocol: TCP
     port: 5000
-    targetPort: 5000
