@@ -20,7 +20,7 @@ patches:
   patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/env/0/value
-      value: http://dev-skillsets:5000
+      value: http://dev-skillsets-api:5000
 #- path: ingress-patch.yaml
 #  target:
 #    group: networking.k8s.io
