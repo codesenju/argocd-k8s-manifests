@@ -57,7 +57,7 @@ patches:
   target:
     group: networking.k8s.io
     kind: Ingress
-    name: skillsets-ingress
+    name: skillsets-api-ingress
     version: v1
 # - patch: |-
 #     - op: replace # action 

@@ -35,7 +35,7 @@ replacements:
     - data.REDIS_HOST
     select:
       kind: ConfigMap
-      name: skillsets-config
+      name: skillsets-api-config
   - fieldPaths:
     -  spec.scaleTargetRef.name
     select:
@@ -44,7 +44,7 @@ replacements:
 - source:
     fieldPath: metadata.name
     kind: Service
-    name: skillsets
+    name: skillsets-api
     version: v1
   targets:
   - fieldPaths:
@@ -63,7 +63,7 @@ patches:
   target:
     group: networking.k8s.io
     kind: Ingress
-    name: skillsets-ingress
+    name: skillsets-api-ingress
     version: v1
 #- patch: |-
 #    - op: replace # action 

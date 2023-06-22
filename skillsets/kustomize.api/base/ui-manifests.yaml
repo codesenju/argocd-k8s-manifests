@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: skillsets-ui
-  namespace: skillsets
 spec:
   selector:
     matchLabels:
